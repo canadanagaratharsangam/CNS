@@ -39,9 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Address.cs" />
-    <Compile Include="Contacts.cs" />
+    <Compile Include="MemberWithContactDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CNS.DataAccessLayer.Sqlite\CNS.DataAccessLayer.Sqlite.csproj">
+      <Project>{858dfc90-4432-42c3-8696-5a1bb78ce345}</Project>
+      <Name>CNS.DataAccessLayer.Sqlite</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CNS.BusinessLayer;
+using CNS.DataAccessLayer.Sqlite;
 using CNS.Model;
+using Address = CNS.DataAccessLayer.Sqlite.Address;
 
 namespace ConsoleFrontEnd
 {
@@ -12,12 +14,8 @@ namespace ConsoleFrontEnd
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Printing Addresses");
-            AddressController l_addressController = new AddressController();
-            foreach (Address l_address in l_addressController.GetAllAddresses())
-            {
-                Console.WriteLine(l_address.Address1);
-            }
+          ContactsController l_ContactsController = new ContactsController();
+            var l_allMemberswithContactDetails = l_ContactsController.GetAllMemberswithContactDetails();
             Console.ReadLine();
         }
     }

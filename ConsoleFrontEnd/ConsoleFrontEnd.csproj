@@ -75,6 +75,10 @@
       <Project>{E4C698C7-E571-47D3-9D62-7DAA9D8DDE22}</Project>
       <Name>CNS.BusinessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CNS.DataAccessLayer.Sqlite\CNS.DataAccessLayer.Sqlite.csproj">
+      <Project>{858dfc90-4432-42c3-8696-5a1bb78ce345}</Project>
+      <Name>CNS.DataAccessLayer.Sqlite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CNS.Model\CNS.Model.csproj">
       <Project>{A8C56417-80D7-47DC-9F16-F6679CAEA639}</Project>
       <Name>CNS.Model</Name>
