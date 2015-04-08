@@ -1,0 +1,430 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="CNSModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=D:\Dropbox\CNS\Database\CNS.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="address_id" />
+          </Key>
+          <Property Name="address_id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="address_line_1" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="address_line_2" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="city" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="province" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="postal_code" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="Contacts">
+          <Key>
+            <PropertyRef Name="contact_id" />
+          </Key>
+          <Property Name="contact_id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="first_name" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="last_name" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="middle_name" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="email_address" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="address_id" Type="integer" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="phone_id" />
+          </Key>
+          <Property Name="phone_id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contact_id" Type="integer" />
+          <Property Name="phone_type_id" Type="integer" />
+          <Property Name="phone_number" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PhoneType">
+          <Key>
+            <PropertyRef Name="phone_type_id" />
+          </Key>
+          <Property Name="phone_type_id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="phone_type" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Relationship">
+          <Key>
+            <PropertyRef Name="relationship_id" />
+          </Key>
+          <Property Name="relationship_id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="contact_id" Type="integer" Nullable="false" />
+          <Property Name="related_to_contact_id" Type="integer" />
+          <Property Name="relationshiptype_id" Type="integer" />
+        </EntityType>
+        <EntityType Name="RelationshipType">
+          <Key>
+            <PropertyRef Name="relationshiptype_id" />
+          </Key>
+          <Property Name="relationshiptype_id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="relationshiptype" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Contacts_0_0">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="address_id" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="address_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_0_0">
+          <End Role="PhoneType" Type="Self.PhoneType" Multiplicity="0..1" />
+          <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhoneType">
+              <PropertyRef Name="phone_type_id" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="phone_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_1_0">
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="0..1" />
+          <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="contact_id" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="contact_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relationship_0_0">
+          <End Role="RelationshipType" Type="Self.RelationshipType" Multiplicity="0..1" />
+          <End Role="Relationship" Type="Self.Relationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelationshipType">
+              <PropertyRef Name="relationshiptype_id" />
+            </Principal>
+            <Dependent Role="Relationship">
+              <PropertyRef Name="relationshiptype_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relationship_1_0">
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="0..1" />
+          <End Role="Relationship" Type="Self.Relationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="contact_id" />
+            </Principal>
+            <Dependent Role="Relationship">
+              <PropertyRef Name="related_to_contact_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relationship_2_0">
+          <End Role="Contacts" Type="Self.Contacts" Multiplicity="1" />
+          <End Role="Relationship" Type="Self.Relationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="contact_id" />
+            </Principal>
+            <Dependent Role="Relationship">
+              <PropertyRef Name="contact_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CNSModelStoreContainer">
+          <EntitySet Name="Address" EntityType="Self.Address" store:Type="Tables" />
+          <EntitySet Name="Contacts" EntityType="Self.Contacts" store:Type="Tables" />
+          <EntitySet Name="Phone" EntityType="Self.Phone" store:Type="Tables" />
+          <EntitySet Name="PhoneType" EntityType="Self.PhoneType" store:Type="Tables" />
+          <EntitySet Name="Relationship" EntityType="Self.Relationship" store:Type="Tables" />
+          <EntitySet Name="RelationshipType" EntityType="Self.RelationshipType" store:Type="Tables" />
+          <AssociationSet Name="FK_Contacts_0_0" Association="Self.FK_Contacts_0_0">
+            <End Role="Address" EntitySet="Address" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_0_0" Association="Self.FK_Phone_0_0">
+            <End Role="PhoneType" EntitySet="PhoneType" />
+            <End Role="Phone" EntitySet="Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_1_0" Association="Self.FK_Phone_1_0">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="Phone" EntitySet="Phone" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relationship_0_0" Association="Self.FK_Relationship_0_0">
+            <End Role="RelationshipType" EntitySet="RelationshipType" />
+            <End Role="Relationship" EntitySet="Relationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relationship_1_0" Association="Self.FK_Relationship_1_0">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="Relationship" EntitySet="Relationship" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relationship_2_0" Association="Self.FK_Relationship_2_0">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="Relationship" EntitySet="Relationship" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CNSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="address_id" />
+          </Key>
+          <Property Name="address_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="address_line_1" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="address_line_2" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="city" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="province" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="postal_code" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Contacts" Relationship="Self.FK_Contacts_0_0" FromRole="Address" ToRole="Contacts" />
+        </EntityType>
+        <EntityType Name="Contact">
+          <Key>
+            <PropertyRef Name="contact_id" />
+          </Key>
+          <Property Name="contact_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="first_name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="last_name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="middle_name" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="email_address" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="address_id" Type="Int64" />
+          <NavigationProperty Name="Address" Relationship="Self.FK_Contacts_0_0" FromRole="Contacts" ToRole="Address" />
+          <NavigationProperty Name="Phones" Relationship="Self.FK_Phone_1_0" FromRole="Contacts" ToRole="Phone" />
+          <NavigationProperty Name="Relationships" Relationship="Self.FK_Relationship_1_0" FromRole="Contacts" ToRole="Relationship" />
+          <NavigationProperty Name="Relationships1" Relationship="Self.FK_Relationship_2_0" FromRole="Contacts" ToRole="Relationship" />
+        </EntityType>
+        <EntityType Name="Phone">
+          <Key>
+            <PropertyRef Name="phone_id" />
+          </Key>
+          <Property Name="phone_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contact_id" Type="Int64" />
+          <Property Name="phone_type_id" Type="Int64" />
+          <Property Name="phone_number" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Contact" Relationship="Self.FK_Phone_1_0" FromRole="Phone" ToRole="Contacts" />
+          <NavigationProperty Name="PhoneType" Relationship="Self.FK_Phone_0_0" FromRole="Phone" ToRole="PhoneType" />
+        </EntityType>
+        <EntityType Name="PhoneType">
+          <Key>
+            <PropertyRef Name="phone_type_id" />
+          </Key>
+          <Property Name="phone_type_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="phone_type" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Phones" Relationship="Self.FK_Phone_0_0" FromRole="PhoneType" ToRole="Phone" />
+        </EntityType>
+        <EntityType Name="Relationship">
+          <Key>
+            <PropertyRef Name="relationship_id" />
+          </Key>
+          <Property Name="relationship_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="contact_id" Type="Int64" Nullable="false" />
+          <Property Name="related_to_contact_id" Type="Int64" />
+          <Property Name="relationshiptype_id" Type="Int64" />
+          <NavigationProperty Name="Contact" Relationship="Self.FK_Relationship_1_0" FromRole="Relationship" ToRole="Contacts" />
+          <NavigationProperty Name="Contact1" Relationship="Self.FK_Relationship_2_0" FromRole="Relationship" ToRole="Contacts" />
+          <NavigationProperty Name="RelationshipType" Relationship="Self.FK_Relationship_0_0" FromRole="Relationship" ToRole="RelationshipType" />
+        </EntityType>
+        <EntityType Name="RelationshipType">
+          <Key>
+            <PropertyRef Name="relationshiptype_id" />
+          </Key>
+          <Property Name="relationshiptype_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="relationshiptype1" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Relationships" Relationship="Self.FK_Relationship_0_0" FromRole="RelationshipType" ToRole="Relationship" />
+        </EntityType>
+        <Association Name="FK_Contacts_0_0">
+          <End Role="Address" Type="Self.Address" Multiplicity="0..1" />
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Address">
+              <PropertyRef Name="address_id" />
+            </Principal>
+            <Dependent Role="Contacts">
+              <PropertyRef Name="address_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_1_0">
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="0..1" />
+          <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="contact_id" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="contact_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relationship_1_0">
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="0..1" />
+          <End Role="Relationship" Type="Self.Relationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="contact_id" />
+            </Principal>
+            <Dependent Role="Relationship">
+              <PropertyRef Name="related_to_contact_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relationship_2_0">
+          <End Role="Contacts" Type="Self.Contact" Multiplicity="1" />
+          <End Role="Relationship" Type="Self.Relationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contacts">
+              <PropertyRef Name="contact_id" />
+            </Principal>
+            <Dependent Role="Relationship">
+              <PropertyRef Name="contact_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Phone_0_0">
+          <End Role="PhoneType" Type="Self.PhoneType" Multiplicity="0..1" />
+          <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhoneType">
+              <PropertyRef Name="phone_type_id" />
+            </Principal>
+            <Dependent Role="Phone">
+              <PropertyRef Name="phone_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relationship_0_0">
+          <End Role="RelationshipType" Type="Self.RelationshipType" Multiplicity="0..1" />
+          <End Role="Relationship" Type="Self.Relationship" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RelationshipType">
+              <PropertyRef Name="relationshiptype_id" />
+            </Principal>
+            <Dependent Role="Relationship">
+              <PropertyRef Name="relationshiptype_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CNSConnection" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Addresses" EntityType="Self.Address" />
+          <EntitySet Name="Contacts" EntityType="Self.Contact" />
+          <EntitySet Name="Phones" EntityType="Self.Phone" />
+          <EntitySet Name="PhoneTypes" EntityType="Self.PhoneType" />
+          <EntitySet Name="Relationships" EntityType="Self.Relationship" />
+          <EntitySet Name="RelationshipTypes" EntityType="Self.RelationshipType" />
+          <AssociationSet Name="FK_Contacts_0_0" Association="Self.FK_Contacts_0_0">
+            <End Role="Address" EntitySet="Addresses" />
+            <End Role="Contacts" EntitySet="Contacts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_1_0" Association="Self.FK_Phone_1_0">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="Phone" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relationship_1_0" Association="Self.FK_Relationship_1_0">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="Relationship" EntitySet="Relationships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relationship_2_0" Association="Self.FK_Relationship_2_0">
+            <End Role="Contacts" EntitySet="Contacts" />
+            <End Role="Relationship" EntitySet="Relationships" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Phone_0_0" Association="Self.FK_Phone_0_0">
+            <End Role="PhoneType" EntitySet="PhoneTypes" />
+            <End Role="Phone" EntitySet="Phones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relationship_0_0" Association="Self.FK_Relationship_0_0">
+            <End Role="RelationshipType" EntitySet="RelationshipTypes" />
+            <End Role="Relationship" EntitySet="Relationships" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CNSModelStoreContainer" CdmEntityContainer="CNSConnection">
+          <EntitySetMapping Name="Addresses">
+            <EntityTypeMapping TypeName="CNSModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="address_id" ColumnName="address_id" />
+                <ScalarProperty Name="address_line_1" ColumnName="address_line_1" />
+                <ScalarProperty Name="address_line_2" ColumnName="address_line_2" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="province" ColumnName="province" />
+                <ScalarProperty Name="postal_code" ColumnName="postal_code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Contacts">
+            <EntityTypeMapping TypeName="CNSModel.Contact">
+              <MappingFragment StoreEntitySet="Contacts">
+                <ScalarProperty Name="contact_id" ColumnName="contact_id" />
+                <ScalarProperty Name="first_name" ColumnName="first_name" />
+                <ScalarProperty Name="last_name" ColumnName="last_name" />
+                <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+                <ScalarProperty Name="email_address" ColumnName="email_address" />
+                <ScalarProperty Name="address_id" ColumnName="address_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Phones">
+            <EntityTypeMapping TypeName="CNSModel.Phone">
+              <MappingFragment StoreEntitySet="Phone">
+                <ScalarProperty Name="phone_id" ColumnName="phone_id" />
+                <ScalarProperty Name="contact_id" ColumnName="contact_id" />
+                <ScalarProperty Name="phone_type_id" ColumnName="phone_type_id" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhoneTypes">
+            <EntityTypeMapping TypeName="CNSModel.PhoneType">
+              <MappingFragment StoreEntitySet="PhoneType">
+                <ScalarProperty Name="phone_type_id" ColumnName="phone_type_id" />
+                <ScalarProperty Name="phone_type" ColumnName="phone_type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relationships">
+            <EntityTypeMapping TypeName="CNSModel.Relationship">
+              <MappingFragment StoreEntitySet="Relationship">
+                <ScalarProperty Name="relationship_id" ColumnName="relationship_id" />
+                <ScalarProperty Name="contact_id" ColumnName="contact_id" />
+                <ScalarProperty Name="related_to_contact_id" ColumnName="related_to_contact_id" />
+                <ScalarProperty Name="relationshiptype_id" ColumnName="relationshiptype_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RelationshipTypes">
+            <EntityTypeMapping TypeName="CNSModel.RelationshipType">
+              <MappingFragment StoreEntitySet="RelationshipType">
+                <ScalarProperty Name="relationshiptype_id" ColumnName="relationshiptype_id" />
+                <ScalarProperty Name="relationshiptype1" ColumnName="relationshiptype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
