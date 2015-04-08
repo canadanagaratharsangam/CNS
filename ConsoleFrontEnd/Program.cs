@@ -14,8 +14,9 @@ namespace ConsoleFrontEnd
     {
         static void Main(string[] args)
         {
-          ContactsController l_ContactsController = new ContactsController();
-            var l_allMemberswithContactDetails = l_ContactsController.GetAllMemberswithContactDetails();
+            ContactsController l_ContactsController = new ContactsController();
+            var l_allMemberswithContactDetails = l_ContactsController.GetAllMemberswithContactDetailsGroupedAsFamily();
+            var l_al2lMemberswithContactDetails = l_ContactsController.GetAllMemberswithContactDetailsSortedAlphabetically();
             Console.ReadLine();
         }
     }
