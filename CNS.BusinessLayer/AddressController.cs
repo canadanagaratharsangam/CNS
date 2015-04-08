@@ -18,6 +18,7 @@ namespace CNS.BusinessLayer
                 {
                     yield return new Address()
                     {
+                        AddressId = l_address.address_id,
                         Address1 = l_address.address_line_1,
                         Address2 = l_address.address_line_2,
                         City = l_address.city,

@@ -8,6 +8,7 @@ namespace CNS.Model
 {
     public class Address
     {
+        public long AddressId;
         public string Address1;
         public string Address2;
         public string City;
