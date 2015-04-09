@@ -43,6 +43,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CNS.DataAccessLayer.Sqlite\CNS.DataAccessLayer.Sqlite.csproj">
+      <Project>{858DFC90-4432-42C3-8696-5A1BB78CE345}</Project>
+      <Name>CNS.DataAccessLayer.Sqlite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CNS.Model\CNS.Model.csproj">
       <Project>{A8C56417-80D7-47DC-9F16-F6679CAEA639}</Project>
       <Name>CNS.Model</Name>
