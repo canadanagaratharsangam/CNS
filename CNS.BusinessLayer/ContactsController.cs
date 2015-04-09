@@ -10,27 +10,28 @@ namespace CNS.BusinessLayer
 {
     public class ContactsController
     {
-        public IEnumerable<IEnumerable<MemberWithContactDetails>> GetAllMemberswithContactDetailsGroupedAsFamily()
+        public IEnumerable<IEnumerable<Tuple<MemberWithContactDetails, string>>> GetAllMemberswithContactDetailsGroupedAsFamily()
         {
-            List<List<MemberWithContactDetails>> l_returnAddressWithContactDetails = new List<List<MemberWithContactDetails>>();
+            List<List<Tuple<MemberWithContactDetails, string>>> l_returnAddressWithContactDetails = new List<List<Tuple<MemberWithContactDetails, string>>>();
             using (CNSConnection l_connection = new CNSConnection())
             {
                 foreach (Contact l_familyHead in l_connection.Relationships.Where(r => r.RelationshipType.relationshiptype_id == 1).Select(r => r.Contact1).OrderBy(c => c.first_name).ThenBy(c => c.last_name))
                 {
-                    List<MemberWithContactDetails> l_familyMembersContactDetails = new List<MemberWithContactDetails>();
+                    List<Tuple<MemberWithContactDetails, string>> l_familyMembersContactDetails = new List<Tuple<MemberWithContactDetails, string>>();
                     MemberWithContactDetails l_memberWithContactDetails = new MemberWithContactDetails();
                     l_memberWithContactDetails.Contact = l_familyHead;
                     l_memberWithContactDetails.ContactAddress = l_familyHead.Address;
                     l_memberWithContactDetails.ContactPhones = l_familyHead.Phones;
-                    l_familyMembersContactDetails.Add(l_memberWithContactDetails);
+                    l_familyMembersContactDetails.Add(new Tuple<MemberWithContactDetails, string>(l_memberWithContactDetails, "Head"));
 
-                    foreach (Relationship l_relationship in l_familyHead.Relationships)
+                    foreach (Relationship l_relationship in l_familyHead.Relationships.OrderBy(r => r.RelationshipType.relationshiptype_id))
                     {
                         MemberWithContactDetails l_relatedMemberWithContactDetails = new MemberWithContactDetails();
                         l_relatedMemberWithContactDetails.Contact = l_relationship.Contact1;
                         l_relatedMemberWithContactDetails.ContactAddress = l_relationship.Contact1.Address;
                         l_relatedMemberWithContactDetails.ContactPhones = l_relationship.Contact1.Phones;
-                        l_familyMembersContactDetails.Add(l_relatedMemberWithContactDetails);
+                        string l_relationshipType = l_relationship.RelationshipType.relationshiptype1;
+                        l_familyMembersContactDetails.Add(new Tuple<MemberWithContactDetails, string>(l_relatedMemberWithContactDetails, l_relationshipType));
                     }
 
                     l_returnAddressWithContactDetails.Add(l_familyMembersContactDetails);

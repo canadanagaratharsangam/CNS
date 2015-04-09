@@ -15,17 +15,17 @@ namespace ConsoleFrontEnd
         {
             m_ContactsController = new ContactsController();
             m_excelFileExporter = new ExcelFileExporter();
-            GenerateAlphabeticallySortedMemberList();
-            GeneratMemberListGroupedAsFamily();
-            GeneratAllKidsWIthParentContactInformation();
-            GenerateAllAdultsGroupedAsFamily();
+            //GenerateAlphabeticallySortedMemberList();
+            //GeneratMemberListGroupedAsFamily();
+            //GeneratAllKidsWIthParentContactInformation();
+            //GenerateAllAdultsGroupedAsFamily();
             GenerateCustomListOfMembers();
             Console.ReadLine();
         }
 
         private static void GenerateCustomListOfMembers()
         {
-            IEnumerable<IEnumerable<MemberWithContactDetails>> l_allMemberswithContactDetailsGroupedAsFamily = m_ContactsController.GetAllMemberswithContactDetailsGroupedAsFamily();
+            IEnumerable<IEnumerable<Tuple<MemberWithContactDetails, string>>> l_allMemberswithContactDetailsGroupedAsFamily = m_ContactsController.GetAllMemberswithContactDetailsGroupedAsFamily();
             m_excelFileExporter.ExportAsGroupedExcelFile(l_allMemberswithContactDetailsGroupedAsFamily, "Master List (Grouped by Family).xlsx");
         }
 
