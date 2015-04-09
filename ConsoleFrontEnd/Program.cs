@@ -15,10 +15,10 @@ namespace ConsoleFrontEnd
         {
             m_ContactsController = new ContactsController();
             m_excelFileExporter = new ExcelFileExporter();
-            //GenerateAlphabeticallySortedMemberList();
-            //GeneratMemberListGroupedAsFamily();
-            //GeneratAllKidsWIthParentContactInformation();
-            //GenerateAllAdultsGroupedAsFamily();
+            GenerateAlphabeticallySortedMemberList();
+            GeneratMemberListGroupedAsFamily();
+            GeneratAllKidsWIthParentContactInformation();
+            GenerateAllAdultsGroupedAsFamily();
             GenerateCustomListOfMembers();
             Console.ReadLine();
         }

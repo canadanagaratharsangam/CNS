@@ -255,13 +255,22 @@ namespace CNS.ExcelExporter
                     l_AddressRange.Merge();
                     l_AddressRange.HorizontalAlignment = XlHAlign.xlHAlignLeft;
 
+                    //Thick border after Family
+                    Range l_familySeperatorRange = l_worksheet.Range[l_worksheet.Cells[l_rowNumber, 1], l_worksheet.Cells[l_rowNumber, 5]];
+                    l_familySeperatorRange.Borders.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkGray);
+                    l_familySeperatorRange.Borders[XlBordersIndex.xlEdgeBottom].Weight = XlBorderWeight.xlThick;
+                    l_familySeperatorRange.Borders[XlBordersIndex.xlEdgeRight].Weight = XlBorderWeight.xlThick;
+                    l_familySeperatorRange.Borders[XlBordersIndex.xlEdgeLeft].Weight = XlBorderWeight.xlThick;
+                    Range l_secondCell = l_familySeperatorRange.Cells[1, 2];
+                    l_secondCell.Borders[XlBordersIndex.xlEdgeRight].Weight = XlBorderWeight.xlThick;
+
                     l_rowNumber++;
                     //New Line between families
-                    Range l_familySeperatorRange = l_worksheet.Range[l_worksheet.Cells[l_rowNumber, 1], l_worksheet.Cells[l_rowNumber, 5]];
-                    l_familySeperatorRange.Merge();
-                    l_familySeperatorRange.RowHeight = 2;
-                    l_familySeperatorRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkGray); ;
-                    l_rowNumber++;
+                    //Range l_familySeperatorRange = l_worksheet.Range[l_worksheet.Cells[l_rowNumber, 1], l_worksheet.Cells[l_rowNumber, 5]];
+                    //l_familySeperatorRange.Merge();
+                    //l_familySeperatorRange.RowHeight = 2;
+                    //l_familySeperatorRange.Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.DarkGray); ;
+                    //l_rowNumber++;
 
                 }
 
