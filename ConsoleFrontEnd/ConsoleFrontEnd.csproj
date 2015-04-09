@@ -68,6 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="ExcelTemplates\FlatAddressBook.xltx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -79,11 +82,16 @@
       <Project>{858dfc90-4432-42c3-8696-5a1bb78ce345}</Project>
       <Name>CNS.DataAccessLayer.Sqlite</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CNS.ExcelExporter\CNS.ExcelExporter.csproj">
+      <Project>{f5e1c363-8d47-4077-b348-7c224f72e7f5}</Project>
+      <Name>CNS.ExcelExporter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CNS.Model\CNS.Model.csproj">
       <Project>{A8C56417-80D7-47DC-9F16-F6679CAEA639}</Project>
       <Name>CNS.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.96.0\build\net45\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.96.0\build\net45\System.Data.SQLite.Core.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

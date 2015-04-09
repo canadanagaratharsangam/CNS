@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DAL", "DAL", "{D629D278-C19E-4C7B-B2E4-71625E731ECE}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{D90A5FB6-44B8-44A5-9733-D2A2130F7457}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleFrontEnd", "ConsoleFrontEnd\ConsoleFrontEnd.csproj", "{4370AEA5-66D3-4FF7-958A-7D3292DC8798}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CNS.ExcelExporter", "CNS.ExcelExporter\CNS.ExcelExporter.csproj", "{F5E1C363-8D47-4077-B348-7C224F72E7F5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{4370AEA5-66D3-4FF7-958A-7D3292DC8798}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4370AEA5-66D3-4FF7-958A-7D3292DC8798}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4370AEA5-66D3-4FF7-958A-7D3292DC8798}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5E1C363-8D47-4077-B348-7C224F72E7F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5E1C363-8D47-4077-B348-7C224F72E7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5E1C363-8D47-4077-B348-7C224F72E7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5E1C363-8D47-4077-B348-7C224F72E7F5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,5 +56,6 @@ Global
 		{A8C56417-80D7-47DC-9F16-F6679CAEA639} = {5B910080-7472-44A1-A3C3-E2E4940DEADE}
 		{E4C698C7-E571-47D3-9D62-7DAA9D8DDE22} = {2AA6136D-2998-4D6A-AD72-40BC21B71722}
 		{4370AEA5-66D3-4FF7-958A-7D3292DC8798} = {D90A5FB6-44B8-44A5-9733-D2A2130F7457}
+		{F5E1C363-8D47-4077-B348-7C224F72E7F5} = {2AA6136D-2998-4D6A-AD72-40BC21B71722}
 	EndGlobalSection
 EndGlobal

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CNS.BusinessLayer;
-using CNS.DataAccessLayer.Sqlite;
+using CNS.ExcelExporter;
 using CNS.Model;
-using Address = CNS.DataAccessLayer.Sqlite.Address;
 
 namespace ConsoleFrontEnd
 {
@@ -15,9 +12,9 @@ namespace ConsoleFrontEnd
         static void Main(string[] args)
         {
             ContactsController l_ContactsController = new ContactsController();
-            var l_allMemberswithContactDetails = l_ContactsController.GetAllMemberswithContactDetailsGroupedAsFamily();
-            var l_al2lMemberswithContactDetails = l_ContactsController.GetAllMemberswithContactDetailsSortedAlphabetically();
-            var l_allAdultMemberswithContactDetails = l_ContactsController.GetAllAdultMemberswithContactDetails();
+            List<MemberWithContactDetails> l_contactDetailsSortedAlphabetically = l_ContactsController.GetAllMemberswithContactDetailsSortedAlphabetically().ToList();
+            CNS.ExcelExporter.FlatExcelFileExporter l_ExcelFileExporter = new FlatExcelFileExporter();
+            l_ExcelFileExporter.ExportToFlatExcelFile(l_contactDetailsSortedAlphabetically,"All Members.xlsx");
             Console.ReadLine();
         }
     }
