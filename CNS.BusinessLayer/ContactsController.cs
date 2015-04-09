@@ -56,32 +56,6 @@ namespace CNS.BusinessLayer
             return l_returnAddressWithContactDetails;
         }
 
-        public IEnumerable<MemberWithContactDetails> GetAllAdultMemberswithContactDetails()
-        {
-            List<MemberWithContactDetails> l_returnAddressWithContactDetails = new List<MemberWithContactDetails>();
-            using (CNSConnection l_connection = new CNSConnection())
-            {
-                foreach (Contact l_familyHead in l_connection.Relationships.Where(r => r.RelationshipType.relationshiptype_id == 1).Select(r => r.Contact1).OrderBy(c => c.first_name).ThenBy(c => c.last_name))
-                {
-                    MemberWithContactDetails l_memberWithContactDetails = new MemberWithContactDetails();
-                    l_memberWithContactDetails.Contact = l_familyHead;
-                    l_memberWithContactDetails.ContactAddress = l_familyHead.Address;
-                    l_memberWithContactDetails.ContactPhones = l_familyHead.Phones;
-                    l_returnAddressWithContactDetails.Add(l_memberWithContactDetails);
-
-                    foreach (Relationship l_relationship in l_familyHead.Relationships.Where(r => r.RelationshipType.relationshiptype_id == 2))
-                    {
-                        MemberWithContactDetails l_spouseWithContactDetails = new MemberWithContactDetails();
-                        l_spouseWithContactDetails.Contact = l_relationship.Contact1;
-                        l_spouseWithContactDetails.ContactAddress = l_relationship.Contact1.Address;
-                        l_spouseWithContactDetails.ContactPhones = l_relationship.Contact1.Phones;
-                        l_returnAddressWithContactDetails.Add(l_spouseWithContactDetails);
-                    }
-                }
-            }
-            return l_returnAddressWithContactDetails;
-        }
-
         public IEnumerable<MemberWithContactDetails> GetAllMembersGroupedAsFamilyFlatStructure()
         {
             List<MemberWithContactDetails> l_returnAddressWithContactDetails = new List<MemberWithContactDetails>();

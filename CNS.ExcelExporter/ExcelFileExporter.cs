@@ -9,7 +9,7 @@ using Microsoft.Office.Interop.Excel;
 
 namespace CNS.ExcelExporter
 {
-    public class FlatExcelFileExporter
+    public class ExcelFileExporter
     {
         public void ExportToFlatExcelFile(List<MemberWithContactDetails> members, string name)
         {
@@ -171,6 +171,56 @@ namespace CNS.ExcelExporter
             }
         }
 
+        public void ExportAsGroupedExcelFile(IEnumerable<IEnumerable<MemberWithContactDetails>> allMembersGroupedByFamily, string fileName)
+        {
+            Application l_application = null;
+            Workbook l_workbook = null;
+            Worksheet l_worksheet = null;
+
+            try
+            {
+                l_application = new Application();
+                string l_spreadsheetTemplateFolderPath = System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase) + @"\ExcelTemplates\";
+                l_workbook =
+                    l_application.Workbooks.Open(
+                        l_spreadsheetTemplateFolderPath + @"GroupedAddressBook.xltx",
+                        Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                        Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                        Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                        Type.Missing, Type.Missing);
+                l_worksheet = (Worksheet)l_workbook.Sheets["Contacts"];
+                l_worksheet.Name = "Contacts";
+                int l_rowNumber = 2;
+
+
+                //l_worksheet.Cells[l_rowNumber, 1] = l_childName;
+                //l_worksheet.Cells[l_rowNumber, 2] = l_parentsNameBuilder.ToString();
+                //l_worksheet.Cells[l_rowNumber, 3] = l_phonesBuilder.ToString();
+                //l_worksheet.Cells[l_rowNumber, 4] = l_emailBuilder.ToString();
+                //l_rowNumber++;
+
+                l_workbook.SaveAs(
+                    l_spreadsheetTemplateFolderPath + fileName,
+                    XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing,
+                    false, false, XlSaveAsAccessMode.xlNoChange,
+                    Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+                l_workbook.Close();
+            }
+            catch (Exception l_ex)
+            {
+                if (l_workbook != null)
+                    l_workbook.Close(false, Type.Missing, Type.Missing);
+
+                throw;
+            }
+            finally
+            {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+                Marshal.FinalReleaseComObject(l_workbook);
+                Marshal.FinalReleaseComObject(l_application);
+            }
+        }
         private string GetPhones(IEnumerable<Phone> phones)
         {
             StringBuilder l_phoneBuilder = new StringBuilder();
@@ -200,5 +250,7 @@ namespace CNS.ExcelExporter
             }
             return l_childNameBuilder.ToString();
         }
+
+
     }
 }
