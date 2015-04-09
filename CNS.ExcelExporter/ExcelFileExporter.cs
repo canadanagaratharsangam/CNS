@@ -140,7 +140,7 @@ namespace CNS.ExcelExporter
                         string l_parentName = GetFullName(l_parent.Contact);
                         l_parentsNameBuilder.AppendLine(l_parentName);
                         string l_phones = GetPhones(l_parent.ContactPhones);
-                        l_phonesBuilder.Append(l_phones);
+                        l_phonesBuilder.AppendLine(l_phones);
                         if (!String.IsNullOrWhiteSpace(l_parent.Contact.email_address))
                         {
                             l_emailBuilder.AppendLine(l_parent.Contact.email_address);
