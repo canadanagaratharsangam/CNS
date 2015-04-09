@@ -30,7 +30,7 @@ namespace CNS.ExcelExporter
                         Type.Missing, Type.Missing);
                 l_worksheet = (Worksheet) l_workbook.Sheets["Contacts"];
                 l_worksheet.Name = "Contacts";
-                int rowNumber = 2;
+                int l_rowNumber = 2;
                 //TODO: Populate data
                 foreach (MemberWithContactDetails l_contactDetails in members)
                 {
@@ -79,12 +79,12 @@ namespace CNS.ExcelExporter
                         }
                         l_phones = l_phoneBuilder.ToString();
                     }
-                    l_worksheet.Cells[rowNumber, 1] = l_firstName;
-                    l_worksheet.Cells[rowNumber, 2] = l_lastName;
-                    l_worksheet.Cells[rowNumber, 3] = l_email;
-                    l_worksheet.Cells[rowNumber, 4] = l_address;
-                    l_worksheet.Cells[rowNumber, 5] = l_phones;
-                    rowNumber++;
+                    l_worksheet.Cells[l_rowNumber, 1] = l_firstName;
+                    l_worksheet.Cells[l_rowNumber, 2] = l_lastName;
+                    l_worksheet.Cells[l_rowNumber, 3] = l_email;
+                    l_worksheet.Cells[l_rowNumber, 4] = l_address;
+                    l_worksheet.Cells[l_rowNumber, 5] = l_phones;
+                    l_rowNumber++;
                 }
                 
                 l_workbook.SaveAs(
